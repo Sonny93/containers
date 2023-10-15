@@ -6,20 +6,24 @@ blog
 # Ignore global files
 **/.env
 
-# Ignore BDD backups
+# Database backups
 BDD/backup
 BDD/backups
 BDD/data
 
-# Ignore NPM data files
+# NPM data files
 nginx-proxy-manager/data
 nginx-proxy-manager/letsencrypt
 
-# Ignore Umami SQL files
+# Umami
 umami/sql
 
-# Medias
+# --- Medias---
 medias
 
-# Ignore transmission config files
+# Transmission
 transmission/config
+
+# Jellyfin
+jellyfin/config
+jellyfin/cache
