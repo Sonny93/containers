@@ -1,0 +1,26 @@
+version: '3.8'
+
+# TODO: Create postgres databse with auto backup and expose only pgadmin behind secure proxy
+# TODO: Send backups in another place
+
+services:
+
+  mariadb:
+    image: mariadb:11
+    container_name: ${DB_CT_NAME}
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./data:/var/lib/mysql
+
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    image: phpmyadmin:5
+    container_name: PhpMyAdmin
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "8181:80"

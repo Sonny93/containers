@@ -1,0 +1,27 @@
+version: "3.8"
+
+volumes:
+  umami-db-data:
+
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - 4300:3000
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@umami_db:5432/${POSTGRES_DB}
+      DATABASE_TYPE: postgresql
+    depends_on:
+      - umami_db
+    restart: always
+
+  umami_db:
+    image: postgres:12-alpine
+    env_file:
+      - .env
+    volumes:
+      - ./sql/schema.postgresql.sql:/docker-entrypoint-initdb.d/schema.postgresql.sql:ro
+      - umami-db-data:/var/lib/postgresql/data
+    restart: always

@@ -1,0 +1,19 @@
+# ce fichier n'a jamais été utilisé pour lancer portainer pour le moment
+# donc à retravailler
+
+version: "3.3"
+
+volumes:
+  portainer_data:
+
+services:
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - 8000:8000
+      - 9443:9443
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "portainer_data:/data"
+    image: "portainer/portainer-ce:latest"
