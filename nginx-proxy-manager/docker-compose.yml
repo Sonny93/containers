@@ -2,13 +2,9 @@ version: '3'
 services:
   nginx:
     container_name: "NginxProxyManager"
-    image: jc21/nginx-proxy-manager:latest
-    environment:
-      DB_MYSQL_HOST: "localhost"
-      DB_MYSQL_PORT: 3307
-      DB_MYSQL_USER: "npm"
-      DB_MYSQL_PASSWORD: "npm"
-      DB_MYSQL_NAME: "npm"
+    image: jc21/nginx-proxy-manager:2.10.4
+    env_file:
+      - .env
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
@@ -20,13 +16,10 @@ services:
   npm_db:
     container_name: "NginxProxyManagerDB"
     image: jc21/mariadb-aria:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
+    env_file:
+      - .env
     ports:
-      - 3307:3306
+      - 127.0.0.1:3307:3306
     volumes:
       - ./data/db:/var/lib/mysql
     restart: always

@@ -10,16 +10,16 @@ BDD/data
 # ?
 
 # Ignore NPM data files
-nginx-proxy-manager/data/*
-nginx-proxy-manager/letsencrypt/*
+nginx-proxy-manager/data
+nginx-proxy-manager/letsencrypt
 
 # Ignore portainer
 # ?
 
 # Ignore Umami SQL files
-umami/sql/*
+umami/sql
 
 # Temp : ignore other project
-uploader/*
-my-links/*
-blog/*
+uploader
+my-links
+blog
