@@ -1,3 +1,8 @@
+# Temp : ignore other project
+uploader
+my-links
+blog
+
 # Ignore global files
 **/.env
 
@@ -6,20 +11,15 @@ BDD/backup
 BDD/backups
 BDD/data
 
-# Ignore monitoring
-# ?
-
 # Ignore NPM data files
 nginx-proxy-manager/data
 nginx-proxy-manager/letsencrypt
 
-# Ignore portainer
-# ?
-
 # Ignore Umami SQL files
 umami/sql
 
-# Temp : ignore other project
-uploader
-my-links
-blog
+# Medias
+medias
+
+# Ignore transmission config files
+transmission/config
