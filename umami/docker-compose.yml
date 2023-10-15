@@ -5,9 +5,10 @@ volumes:
 
 services:
   umami:
-    image: ghcr.io/umami-software/umami:postgresql-latest
+    container_name: Umami
+    image: ghcr.io/umami-software/umami:postgresql-v2.7.0
     ports:
-      - 4300:3000
+      - 127.0.0.1:4300:3000
     env_file:
       - .env
     environment:
@@ -18,6 +19,7 @@ services:
     restart: always
 
   umami_db:
+    container_name: UmamiDB
     image: postgres:12-alpine
     env_file:
       - .env
