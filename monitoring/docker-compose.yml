@@ -1,24 +1,30 @@
 version: "3.8"
 
+# TODO: configure datasoure from config file
+
 networks:
   monitoring:
     driver: bridge
 
 volumes:
   prometheus_data: {}
+  grafana_data: {}
 
 services:
   grafana:
-    container_name: grafana
+    container_name: Grafana
     ports:
-      - "9080:3000"
-    image: grafana/grafana
+      - 127.0.0.1:9080:3000
+    image: grafana/grafana:10.1.5
     networks:
       - monitoring
+    volumes:
+      - prometheus_data:/prometheus
+      - grafana_data:/var/lib/grafana
 
   node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
+    image: prom/node-exporter:v1.6.1
+    container_name: NodeExporter
     restart: unless-stopped
     volumes:
       - /proc:/host/proc:ro
@@ -29,14 +35,12 @@ services:
       - "--path.rootfs=/rootfs"
       - "--path.sysfs=/host/sys"
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
-    expose:
-      - 9100
     networks:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
+    image: prom/prometheus:v2.47.2
+    container_name: Prometheus
     restart: unless-stopped
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -47,7 +51,9 @@ services:
       - "--web.console.libraries=/etc/prometheus/console_libraries"
       - "--web.console.templates=/etc/prometheus/consoles"
       - "--web.enable-lifecycle"
-    expose:
-      - 9090
+
     networks:
       - monitoring
+
+# node-exporter port : 9100
+# Prometheus port : 9090
