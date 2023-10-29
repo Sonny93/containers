@@ -9,5 +9,7 @@ services:
       - ./config:/config
       - ../medias:/downloads
       - ./watch:/watch
+    env_file:
+      - .env
     ports:
       - 9091:9091
