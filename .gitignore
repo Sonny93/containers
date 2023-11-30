@@ -5,6 +5,7 @@ blog
 
 # Ignore global files
 **/.env
+logs
 
 # Database backups
 BDD/backup

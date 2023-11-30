@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  endlessh:
+    restart: always
+    image: lscr.io/linuxserver/endlessh:latest
+    container_name: endlessh
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - MSDELAY=10000
+      - MAXCLIENTS=4096
+      - LOGFILE=true
+    volumes:
+      - ./logs:/config/logs
+    ports:
+      - 22:2222
