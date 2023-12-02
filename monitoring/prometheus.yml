@@ -14,5 +14,5 @@ scrape_configs:
 remote_write:
   - url: "grafana:3000"
     basic_auth:
-      username: admin'
-      password: "admin"
+      username: "admin"
+      password: "m3!3njB27fE@X#^G"
