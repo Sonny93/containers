@@ -14,7 +14,7 @@ services:
   grafana:
     container_name: Grafana
     ports:
-      - 127.0.0.1:9080:3000
+      - "127.0.0.1:9080:3000"
     image: grafana/grafana:10.1.5
     networks:
       - monitoring
@@ -54,6 +54,5 @@ services:
 
     networks:
       - monitoring
-
 # node-exporter port : 9100
 # Prometheus port : 9090

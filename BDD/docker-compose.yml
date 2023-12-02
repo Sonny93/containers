@@ -1,10 +1,9 @@
-version: '3.8'
+version: "3.8"
 
 # TODO: Create postgres databse with auto backup and expose only pgadmin behind secure proxy
 # TODO: Send backups in another place
 
 services:
-
   mariadb:
     image: mariadb:11
     container_name: ${DB_CT_NAME}
@@ -23,4 +22,4 @@ services:
     env_file:
       - ./.env
     ports:
-      - "8181:80"
+      - "127.0.0.1:8181:80"
