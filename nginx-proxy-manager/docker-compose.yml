@@ -12,6 +12,8 @@ services:
       - .env
     volumes:
       - db_vol:/var/lib/mysql
+    ports:
+      - "127.0.0.1:3306:3306"
 
   nginx:
     restart: always
@@ -20,14 +22,10 @@ services:
     env_file:
       - .env
     environment:
-      - DB_MYSQL_HOST=npm_db
       - DB_MYSQL_PORT=3306
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
-    ports:
-      - "80:80" # NPM ports must not be prefixed by 127.0.0.1
-      - "443:443"
-      - "81:81"
+    network_mode: host # Host needed to discover all exposed containers
     depends_on:
       - npm_db
