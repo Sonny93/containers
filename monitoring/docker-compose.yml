@@ -13,7 +13,7 @@ services:
     container_name: Grafana
     ports:
       - "127.0.0.1:9080:3000"
-    image: grafana/grafana:10.1.5
+    image: grafana/grafana:10.2.4
     networks:
       - monitoring
     volumes:
@@ -25,7 +25,7 @@ services:
       - prometheus
 
   node-exporter:
-    image: prom/node-exporter:v1.6.1
+    image: prom/node-exporter:v1.7.0
     container_name: NodeExporter
     restart: unless-stopped
     volumes:
@@ -41,7 +41,7 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:v2.47.2
+    image: prom/prometheus:v2.50.1
     container_name: Prometheus
     restart: unless-stopped
     volumes:
