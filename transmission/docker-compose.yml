@@ -3,7 +3,7 @@ version: "3.8"
 services:
   transmission:
     container_name: Transmission
-    image: linuxserver/transmission:4.0.4
+    image: linuxserver/transmission:4.0.5
     restart: always
     volumes:
       - ./config:/config
