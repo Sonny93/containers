@@ -6,14 +6,13 @@ volumes:
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.19.1
+    image: portainer/portainer-ce:2.19.4
     restart: always
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "portainer_data:/data"
     ports:
       - 127.0.0.1:9443:9443
-
 # Ports :
 # Web intefaace : 9443
 # Others : 8000, 9000
