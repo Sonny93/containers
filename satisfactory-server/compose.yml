@@ -1,0 +1,25 @@
+name: satisfactory-server
+services:
+  satisfactory-server:
+    container_name: satisfactory-server
+    hostname: satisfactory-server
+    restart: unless-stopped
+    volumes:
+      - /path/to/config:/config
+    environment:
+      - MAXPLAYERS=4
+      - PGID=1000
+      - PUID=1000
+      - ROOTLESS=false
+      - STEAMBETA=false
+    deploy:
+      resources:
+        reservations:
+          memory: 4G
+        limits:
+          memory: 6G
+    ports:
+      - "7777:7777/udp"
+      - "15000:15000/udp"
+      - "15777:15777/udp"
+    image: wolveix/satisfactory-server:latest
