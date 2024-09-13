@@ -28,3 +28,6 @@ transmission/config
 # Jellyfin
 jellyfin/config
 jellyfin/cache
+
+# Satisfactory
+satisfactory-server/data/**/*
