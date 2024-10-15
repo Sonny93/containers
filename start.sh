@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker compose -f ./BBD/docker-compose.yml up -d
+docker compose -f ./BDD/docker-compose.yml up -d
 docker compose -f ./endlessh/docker-compose.yml up -d
 docker compose -f ./jellyfin/docker-compose.yml up -d
 docker compose -f ./memos/docker-compose.yml up -d
