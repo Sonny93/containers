@@ -1,12 +1,10 @@
-version: "3.8"
-
 volumes:
   umami-db-data:
 
 services:
   umami:
     container_name: Umami
-    image: ghcr.io/umami-software/umami:postgresql-v2.12.1
+    image: ghcr.io/umami-software/umami:postgresql-v2.13.1
     ports:
       - 127.0.0.1:4300:3000
     env_file:

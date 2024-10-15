@@ -1,6 +1,6 @@
 services:
   memos:
-    image: neosmemo/memos:0.22
+    image: neosmemo/memos:stable
     container_name: Memos
     restart: always
     volumes:

@@ -1,5 +1,3 @@
-version: "3.8"
-
 # TODO: Create postgres databse with auto backup and expose only pgadmin behind secure proxy
 # TODO: Send backups in another place
 
