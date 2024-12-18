@@ -12,7 +12,7 @@ services:
     restart: always
     ports:
       - "127.0.0.1:9080:3000"
-    image: grafana/grafana:11.2.2
+    image: grafana/grafana:11.4.0
     networks:
       - monitoring
     volumes:
@@ -40,7 +40,7 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:v2.54.1
+    image: prom/prometheus:v3.0.1
     container_name: Prometheus
     restart: always
     volumes:

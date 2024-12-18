@@ -4,7 +4,7 @@ volumes:
 services:
   umami:
     container_name: Umami
-    image: ghcr.io/umami-software/umami:postgresql-v2.13.1
+    image: ghcr.io/umami-software/umami:postgresql-v2.15.1
     ports:
       - 127.0.0.1:4300:3000
     env_file:
