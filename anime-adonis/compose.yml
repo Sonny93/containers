@@ -44,12 +44,10 @@ services:
     container_name: anime-adonis
     restart: always
     image: sonny93/anime-adonis:latest
-    environment:
-      - DB_HOST=postgres
-      - HOST=0.0.0.0
-      - NODE_ENV=production
     env_file:
       - .env
+    environment:
+      - DB_PORT=5432
     depends_on:
       postgres:
         condition: service_healthy
@@ -61,14 +59,14 @@ volumes:
 
 configs:
   pgpass:
-    content: postgres:${DB_PORT}:*:${DB_USER}:${DB_PASSWORD}
+    content: postgres:5432:*:${DB_USER}:${DB_PASSWORD}
   servers.json:
     content: |
       {"Servers": {"1": {
         "Group": "Servers",
         "Name": "project",
         "Host": "postgres",
-        "Port": ${DB_PORT},
+        "Port": 5432,
         "MaintenanceDB": "${DB_DATABASE}",
         "Username": "${DB_USER}",
         "PassFile": "/pgpass",
