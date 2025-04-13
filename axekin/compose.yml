@@ -44,8 +44,7 @@ services:
   axekin:
     container_name: axekin
     restart: always
-    build:
-      context: .
+    image: sonny93/axekin:latest
     environment:
       - DB_HOST=mysql
       - HOST=0.0.0.0
