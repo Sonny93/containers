@@ -1,0 +1,62 @@
+name: axekin
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${DB_PASSWORD}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:5.2
+    restart: always
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - mysql
+    ports:
+      - "5050:80"
+
+  axekin:
+    container_name: axekin
+    restart: always
+    build:
+      context: .
+    environment:
+      - DB_HOST=mysql
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+    env_file:
+      - .env
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - ${PORT}:3333
+
+volumes:
+  mysql-volume:
