@@ -1,7 +1,6 @@
 name: axekin
 services:
   postgres:
-    container_name: postgres
     image: postgres:17
     restart: always
     environment:
@@ -16,7 +15,6 @@ services:
       - "${DB_PORT}:5432"
 
   pgadmin:
-    container_name: pgadmin
     image: dpage/pgadmin4:9
     restart: always
     entrypoint: /bin/sh -c "chmod 0600 /pgpass; /entrypoint.sh;"
@@ -39,7 +37,6 @@ services:
         target: /pgadmin4/servers.json
 
   axekin:
-    container_name: axekin
     restart: always
     image: sonny93/axekin:latest
     env_file:
