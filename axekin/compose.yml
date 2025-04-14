@@ -1,61 +1,69 @@
 name: axekin
 services:
-  mysql:
-    container_name: mysql
-    image: mysql:8
+  postgres:
+    container_name: postgres
+    image: postgres:17
     restart: always
     environment:
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "localhost",
-          "-u",
-          "root",
-          "-p${DB_PASSWORD}",
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      test: ["CMD-SHELL", "pg_isready", "-U", "${DB_USER}"]
     volumes:
-      - mysql-volume:/var/lib/mysql
+      - postgres-volume:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT}:3306"
+      - "${DB_PORT}:5432"
 
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:5.2
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:9
     restart: always
+    entrypoint: /bin/sh -c "chmod 0600 /pgpass; /entrypoint.sh;"
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
+      interval: 2s
+      timeout: 10s
+      retries: 30
+    env_file: .env
     environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=${DB_PORT}
-      - PMA_USER=root
-      - PMA_PASSWORD=${DB_PASSWORD}
+      - PGADMIN_DEFAULT_EMAIL=myemail@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=a12345678
     depends_on:
-      - mysql
+      - postgres
     ports:
-      - "8080:80"
+      - "5050:80"
+    user: root
+    configs:
+      - source: servers.json
+        target: /pgadmin4/servers.json
 
   axekin:
     container_name: axekin
     restart: always
     image: sonny93/axekin:latest
-    environment:
-      - DB_HOST=mysql
-      - HOST=0.0.0.0
-      - NODE_ENV=production
     env_file:
       - .env
+    environment:
+      - DB_PORT=5432
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     ports:
       - ${PORT}:3333
 
 volumes:
-  mysql-volume:
+  postgres-volume:
+
+configs:
+  servers.json:
+    content: |
+      {"Servers": {"1": {
+        "Group": "Servers",
+        "Name": "project",
+        "Host": "postgres",
+        "Port": 5432,
+        "MaintenanceDB": "${DB_DATABASE}",
+        "Username": "${DB_USER}",
+        "SSLMode": "prefer"
+      }}}
