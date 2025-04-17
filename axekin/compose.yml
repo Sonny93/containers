@@ -47,7 +47,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - ${PORT}:3333
+      - ${PORT}:${PORT}
     volumes:
       - storage-volume:/app/storage
 
